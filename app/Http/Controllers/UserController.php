@@ -11,8 +11,7 @@ class UserController extends Controller
     //
     public function list()
     {
-        dd(User::get());
-        return view('welcome', [
+        return view('home', [
             'users' => User::get()
         ]);
     }
