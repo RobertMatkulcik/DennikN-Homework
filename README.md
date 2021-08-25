@@ -22,6 +22,12 @@ Vysledok (aj s SQlite suborom, aby sme mali DB uz predpripravenu) daj prosim na 
 
 
 # HOW TO
+
+Install:
+```
+composer install
+```
+
 Runnable with
 ```
 ./vendor/bin/sail up
