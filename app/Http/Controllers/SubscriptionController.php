@@ -43,15 +43,29 @@ class SubscriptionController extends Controller
         ]);
 
 
-        $currentDateTime = Carbon::now();
         $newDateTime = Carbon::now()->addMonths($validatedPost["duration"]);
 
-        $suscription = new Subscription();
-        $suscription->type = $validatedPost["type"];
-        $suscription->user_id = $userId;
-        $suscription->start = now();
-        $suscription->end = $newDateTime;
-        $suscription->save();
+        $subscription = new Subscription();
+        $subscription->type = $validatedPost["type"];
+        $subscription->user_id = $userId;
+        $subscription->start = now();
+        $subscription->end = $newDateTime;
+
+        $subscription->save();
+
+        // Save $closestToEnd subscription for better sorting
+        $closestToEnd = Subscription::where("user_id",$userId)->orderBy("end","asc")->first();
+        $user = User::findOrFail($userId);
+        if($closestToEnd){
+            $closestToEndDate = $closestToEnd->end;
+
+        }else{
+            $closestToEndDate = $subscription->end;
+        }
+        $user->closest_subscription_end = $closestToEndDate;
+        $user->save();
+
+
         return redirect()->to('/');
 
     }
@@ -59,7 +73,7 @@ class SubscriptionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subscription  $subscription
+     * @param \App\Models\Subscription $subscription
      * @return \Illuminate\Http\Response
      */
     public function show(Subscription $subscription)
@@ -70,7 +84,7 @@ class SubscriptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subscription  $subscription
+     * @param \App\Models\Subscription $subscription
      * @return \Illuminate\Http\Response
      */
     public function edit(Subscription $subscription)
@@ -81,8 +95,8 @@ class SubscriptionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subscription  $subscription
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Subscription $subscription
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Subscription $subscription)
@@ -93,7 +107,7 @@ class SubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subscription  $subscription
+     * @param \App\Models\Subscription $subscription
      * @return \Illuminate\Http\Response
      */
     public function destroy(Subscription $subscription)

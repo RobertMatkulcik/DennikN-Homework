@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "closest_subscription_end"
     ];
 
     /**
@@ -51,8 +52,8 @@ class User extends Authenticatable
 
     public function subscriptions()
     {
-        return $this->hasMany('App\Models\Subscription', "user_id");
-//        return $this->hasMany('App\Models\Subscription', "user_id")->orderBy('end', "desc");
+//        return $this->hasMany('App\Models\Subscription', "user_id");
+        return $this->hasMany('App\Models\Subscription', "user_id")->orderBy('end', "asc");
     }
 
     public function getCreatedAtAttribute($value) {
