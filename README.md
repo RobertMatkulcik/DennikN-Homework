@@ -27,13 +27,19 @@ Install:
 ```
 composer install
 ```
+build:
+```
+npm run dev
+```
 
 Runnable with
 ```
 ./vendor/bin/sail up
 ```
 
-Build CSS
+
+## Build CSS
 Now when you run
 npm run watch, npm run dev or npm run prod
 , Tailwind CSS will be ready to use in your Laravel Mix project.
+
