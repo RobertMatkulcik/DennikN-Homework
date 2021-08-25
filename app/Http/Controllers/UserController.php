@@ -14,16 +14,10 @@ class UserController extends Controller
     {
 
 
-
-//        TODO: Order users by subscription->start
-
-        $order = 'desc';
-        $users = Subscription::select("user_id")
-            ->orderBy('start', $order)
-            ->groupBy("user_id")
-            ->get();
-
-
+//        Sorted on relation
+//        $users = User::get();
+        $order = 'asc';
+        $users = User::join('subscriptions', 'subscriptions.user_id', '=', 'users.id')->orderBy('subscriptions.end', $order)->select('users.*')->groupBy("subscriptions.user_id")->get();
 
         return view('home', [
             'users' => $users

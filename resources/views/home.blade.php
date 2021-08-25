@@ -19,18 +19,17 @@
                         <th class="px-4 py-3">Email</th>
                         <th class="px-4 py-3">Created at</th>
                         <th class="px-4 py-3">Subscriptions</th>
-                        <th class="px-4 py-3">Subscription start</th>
                         <th class="px-4 py-3">Subscription end <i class="fas fa-chevron-up"></i></th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                     <?php
-                    foreach ($users as $userData){
-                        $user = App\Models\User::find($userData["user_id"]);
+//                    foreach ($users as $userData){
+//                        $user = App\Models\User::find($userData["user_id"]);
                         ?>
+                    @foreach ($users as $user)
                     <tr class="bg-gray-700 border-b border-gray-600">
                         <td class="px-4 py-3">{{$user->email}}</td>
                         <td class="px-4 py-3">{{$user->created_at}}</td>
-                        <td class="px-4 py-3">Mini</td>
                         <td class="px-4 py-3">
                             <ul>
                                 @foreach($user->subscriptions()->get() as $subscription)
@@ -44,7 +43,7 @@
                             <ul>
                                 @foreach($user->subscriptions()->get() as $subscription)
                                     <li class="">
-                                        {{$subscription->start}}
+                                        {{$subscription->end}}
                                     </li>
                                 @endforeach
                             </ul>
@@ -55,8 +54,9 @@
                             </a>
                         </td>
                     </tr>
+                @endforeach
                     <?php
-                    }
+//                    }
                     ?>
 {{--                    @foreach($users as $user)--}}
 {{--                        <tr class="bg-gray-700 border-b border-gray-600">--}}

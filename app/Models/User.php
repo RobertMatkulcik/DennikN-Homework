@@ -49,10 +49,10 @@ class User extends Authenticatable
         $this->name = $this->email;
     }
 
-    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subscriptions()
     {
         return $this->hasMany('App\Models\Subscription', "user_id");
-//        return $this->hasMany('App\Models\Subscription', "user_id")->orderBy('start', "desc");
+//        return $this->hasMany('App\Models\Subscription', "user_id")->orderBy('end', "desc");
     }
 
     public function getCreatedAtAttribute($value) {
