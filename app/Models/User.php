@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Subscription;
 
 class User extends Authenticatable
 {
@@ -47,4 +48,15 @@ class User extends Authenticatable
         parent::__construct($attributes);
         $this->name = $this->email;
     }
+
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Models\Subscription', "user_id");
+//        return $this->hasMany('App\Models\Subscription', "user_id")->orderBy('start', "desc");
+    }
+
+    public function getCreatedAtAttribute($value) {
+        return date('H:m  d/m/Y', strtotime($value));
+    }
+
 }

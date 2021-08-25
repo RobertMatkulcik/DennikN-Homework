@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,9 +12,23 @@ class UserController extends Controller
     //
     public function list()
     {
+
+
+
+//        TODO: Order users by subscription->start
+
+        $order = 'desc';
+        $users = Subscription::select("user_id")
+            ->orderBy('start', $order)
+            ->groupBy("user_id")
+            ->get();
+
+
+
         return view('home', [
-            'users' => User::get()
+            'users' => $users
         ]);
+
     }
 
     public function register()

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubscriptionController;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [UserController::class, 'list']);
+Route::get('/subscribe/{id}', [SubscriptionController::class, 'create'])->name("subscribe");
+Route::post('/subscribe/{id}', [SubscriptionController::class, 'store'])->name("subscribe");
+//Route::post('/subscribe/{id}', [Subscription::class, 'store'])->name("subscribe");
 
 Route::get('/register', [UserController::class, 'register']);
 Route::post('register', [UserController::class, 'store']);
