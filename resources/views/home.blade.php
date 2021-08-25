@@ -43,7 +43,7 @@
                             <ul>
                                 @foreach($user->subscriptions()->get() as $subscription)
                                     <li class="">
-                                        {{$subscription->end}}
+                                        {{ \Carbon\Carbon::parse($subscription->end)->format('H:i d/m/Y')}}
                                     </li>
                                 @endforeach
                             </ul>
