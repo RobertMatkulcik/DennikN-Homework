@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -38,13 +39,18 @@ class SubscriptionController extends Controller
 
         $validatedPost = $this->validate(request(), [
             'type' => 'required',
+            'duration' => 'required|numeric',
         ]);
+
+
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->addMonths($validatedPost["duration"]);
 
         $suscription = new Subscription();
         $suscription->type = $validatedPost["type"];
         $suscription->user_id = $userId;
         $suscription->start = now();
-        $suscription->end = now();
+        $suscription->end = $newDateTime;
         $suscription->save();
         return redirect()->to('/');
 
