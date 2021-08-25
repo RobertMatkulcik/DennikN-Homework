@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -33,14 +34,16 @@ class UserController extends Controller
     }
     public function store()
     {
-        $this->validate(request(), [
+        $validatedPost = $this->validate(request(), [
 //            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
-//        $user = User::create(request(['name', 'email', 'password']));
-        $user = User::create(request(['email', 'password']));
+        $user = User::create([
+            'email' => $validatedPost['email'],
+            'password' => Hash::make($validatedPost['password']),
+        ]);
 
 //        auth()->login($user);
 

@@ -17,6 +17,7 @@
                     <div class="mb-4">
 
                         <div class="relative">
+                            Duration:
                             <select name="duration" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                 @for ($i = 1; $i <= 12; $i++)
                                     <option value="{{$i}}" class="capitalize">{{$i}} Months</option>
@@ -32,6 +33,7 @@
                     <div class="mb-4">
 
                         <div class="relative">
+                            Subscription type:
                             <select name="type" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                 <option class="capitalize">{{\App\Models\Subscription::TYPE_MINI}}</option>
                                 <option class="capitalize">{{\App\Models\Subscription::TYPE_STANDARD}}</option>

@@ -9,6 +9,7 @@ class Subscription extends Model
 {
     use HasFactory;
 
+
     protected $fillable = ["type", "user_id", "start", "end", "created_at", "updated_at"];
 
     const TYPE_MINI = 'mini';
@@ -27,5 +28,9 @@ class Subscription extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+//    public function getEndAttribute($value) {
+//        return date('H:m  d/m/Y', strtotime($value));
+//    }
 
 }
